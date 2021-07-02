@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { requireSignin, isAuth, isAdmin } = require('../controllers/auth');
 const { userById } = require('../controllers/user');
-const { create, productById, read, remove, update, list, listRelated, listCategories } = require('../controllers/product');
+const { create, productById, read, remove, update, list, listRelated, listCategories, listBySearch } = require('../controllers/product');
 
 router.get('/product/:productId', read);
 router.get('/products', list);
@@ -12,6 +12,7 @@ router.get('/products/categories', listCategories);
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
 router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, remove);
 router.put('/product/:productId/:userId', requireSignin, isAuth, isAdmin, update);
+router.post("/products/by/search", listBySearch);
 
 router.param('userId', userById);
 router.param('productId', productById);
